@@ -1,12 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Route, Router, Switch } from 'react-router-dom'
+import { createBrowserHistory } from 'history'
+import Planet from './pages/planet'
+import People from './pages/people'
+import Home from './pages/home'
+import { Provider } from './context'
+import Links from './links'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const browserHistory = createBrowserHistory()
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const App = () => (
+  <Router history={ browserHistory }>
+    <Switch>
+      <Route exact path="/" component={ Home } />
+      <Provider>
+        <Route exact path="/planet" component={ Planet } />
+        <Route exact path="/people" component={ People } />
+      </Provider>
+    </Switch>
+    <Links />
+  </Router>
+)
+
+ReactDOM.render(<App />, document.getElementById('root'))
