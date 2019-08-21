@@ -19,12 +19,18 @@ const fetchPlanet = async () => {
 
 export class Provider extends Component{
   state = { planet : null, people : null }
+  componentDidMount(){
+    console.log('Context provider mounted')
+  }
+  componentWillUnmount(){
+    console.log('Context provider unmounted')
+  }
   getPlanet(){
     const { planet } = this.state
     if (!planet){
       setTimeout(async () => {
-        const data = await fetchPlanet()
-        this.setState({ planet : data })
+        const planet = await fetchPlanet()
+        this.setState({ planet })
       }, 0)
     }
     return planet
@@ -33,8 +39,8 @@ export class Provider extends Component{
     const { people } = this.state
     if (!people){
       setTimeout(async () => {
-        const data = await fetchPeople()
-        this.setState({ people : data })
+        const people = await fetchPeople()
+        this.setState({ people })
       }, 0)
     }
     return people
